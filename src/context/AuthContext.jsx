@@ -38,7 +38,8 @@ export function AuthProvider({ children }) {
      */
     const login = async (email, senha) => {
         try {
-            const resposta = await api.post('/auth/login', { email, senha })
+            const resposta = await api.post('/api/auth/login', { email, senha })
+
             const { token, usuario: dadosUsuario } = resposta.data
 
             // Persiste no localStorage para sobreviver a recargas de página
