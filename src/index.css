@@ -1,0 +1,267 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap");
+@config "../tailwind.config.js";
+
+/* =====================================================
+   index.css — Premium Design System SENAI-CIC
+   ===================================================== */
+
+:root {
+  /* Colors - Deep Premium Slate */
+  --cor-fundo: #020617;
+  --cor-fundo-card: #0f172a;
+  --cor-fundo-hover: #1e293b;
+
+  --cor-primaria: #3b82f6;
+  --cor-primaria-clara: #60a5fa;
+  --cor-primaria-escura: #2563eb;
+
+  --cor-texto: #f8fafc;
+  --cor-texto-suave: #94a3b8;
+  --cor-borda: rgba(255, 255, 255, 0.06);
+  --cor-borda-luminosa: rgba(255, 255, 255, 0.1);
+
+  /* Semantic Colors */
+  --sucesso: #10b981;
+  --aviso: #f59e0b;
+  --critico: #ef4444;
+  --info: #3b82f6;
+
+  /* Level Colors */
+  --excedeu: #3b82f6;
+  --atingiu: #10b981;
+  --em-desenvolvimento: #f59e0b;
+
+  /* Tokens */
+  --raio: 1.25rem;
+  --raio-sm: 0.75rem;
+  --sombra:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --sombra-lg:
+    0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  --transicao: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Reset e Base ---- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: "Outfit", sans-serif;
+}
+
+/* ---- Glassmorphism Components ---- */
+.glass {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--cor-borda);
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  transition: var(--transicao);
+}
+
+.glass-card:hover {
+  border-color: var(--cor-borda-luminosa);
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-lg);
+}
+
+/* ---- Common Classes ---- */
+.card {
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 2rem;
+  box-shadow: var(--sombra);
+  transition: var(--transicao);
+}
+
+.input-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.input {
+  background: rgba(2, 6, 23, 0.5);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  border-radius: var(--raio-sm);
+  padding: 0.8rem 1.2rem;
+  font-size: 0.95rem;
+  transition: var(--transicao);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  background: rgba(2, 6, 23, 0.8);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--raio-sm);
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: var(--transicao);
+  text-decoration: none;
+}
+
+.btn-primario {
+  background: linear-gradient(
+    135deg,
+    var(--cor-primaria),
+    var(--cor-primaria-escura)
+  );
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+}
+
+.btn-primario:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.5);
+}
+
+/* ---- Text Helpers ---- */
+.text-gradient {
+  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animar-entrada {
+  animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ---- Custom Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cor-fundo);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cor-borda-luminosa);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cor-texto-suave);
+}
+
+/* Utilities */
+.p-20 {
+  padding: 5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ---- Native PDF Printing Mode ---- */
+@media print {
+  /* Force clean slate background to override window dark mode during printing */
+  body,
+  .glass,
+  .glass-card,
+  .card {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Oculta controles interativos do Admin Dashboard no PDF gerado */
+  button,
+  a,
+  select,
+  nav,
+  header {
+    display: none !important;
+  }
+
+  /* Mantém ranking e títulos legíveis na impressão branca */
+  * {
+    color: #0f172a !important;
+    /* Force dark text explicitly to override oklab inverted whites */
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Mantém grid estruturado */
+  #ranking-table {
+    page-break-inside: avoid;
+  }
+
+  /* Charts Background Fix */
+  svg text {
+    fill: #0f172a !important;
+  }
+}
