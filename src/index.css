@@ -4,7 +4,7 @@
 @config "../tailwind.config.js";
 
 /* =====================================================
-   index.css — Premium Design System SENAI-CIC
+   index.css — Premium Design System Gestão091
    ===================================================== */
 
 :root {
@@ -139,11 +139,9 @@ h4,
 }
 
 .btn-primario {
-  background: linear-gradient(
-    135deg,
-    var(--cor-primaria),
-    var(--cor-primaria-escura)
-  );
+  background: linear-gradient(135deg,
+      var(--cor-primaria),
+      var(--cor-primaria-escura));
   color: white;
   box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
 }
@@ -215,6 +213,7 @@ h4,
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
@@ -227,6 +226,7 @@ h4,
 
 /* ---- Native PDF Printing Mode ---- */
 @media print {
+
   /* Force clean slate background to override window dark mode during printing */
   body,
   .glass,

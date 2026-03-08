@@ -161,7 +161,7 @@ const AdminManagement = () => {
 
             <header className="mb-10">
                 <h1 className="text-4xl font-black text-gradient mb-2">Gestão do Sistema</h1>
-                <p className="text-slate-400">Controle total de usuários e equipes SENAI-CIC</p>
+                <p className="text-slate-400">Controle total de usuários e equipes Gestão091</p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -22,7 +22,7 @@ import {
  */
 const RadarPerformance = ({ dados, nomeColaborador }) => {
 
-    // Lógica para determinar a cor baseada na média (Escala SENAI 1 a 4)
+    // Lógica para determinar a cor baseada na média (Escala Gestão091 1 a 10)
     const calcularMedia = () => {
         if (!dados || dados.length === 0) return 0;
         const soma = dados.reduce((acc, item) => acc + item.nota, 0);

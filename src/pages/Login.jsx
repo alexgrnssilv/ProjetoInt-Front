@@ -1,5 +1,5 @@
 // =====================================================
-// Login.jsx — Página de Autenticação SENAI-CIC
+// Login.jsx — Página de Autenticação Gestão091
 // =====================================================
 
 import { useState } from 'react'
@@ -41,10 +41,10 @@ export default function Login() {
 
                 {/* Logo / Cabeçalho */}
                 <div className="text-center mb-10">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
-                        <Shield size={32} color="white" />
+                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(59,130,246,0.4)] overflow-hidden">
+                        <img src="/logo_gestao.png" alt="Gestão091 Logo" className="w-full h-full object-cover" />
                     </div>
-                    <h1 className="text-3xl font-black tracking-tight">SENAI-CIC</h1>
+                    <h1 className="text-3xl font-black tracking-tight text-white">Gestão091</h1>
                     <p className="text-slate-500 font-medium text-sm mt-1">
                         Sistema de Gestão de Desempenho
                     </p>
