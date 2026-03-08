@@ -5,9 +5,14 @@
 
 import axios from 'axios'
 
-// Cria a instância com a URL base da API (variável de ambiente em produção ou localhost local)
+// Garante que a URL base sempre termine com /api para evitar erros de 404 no deploy
+let urlBase = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+if (!urlBase.endsWith('/api')) {
+    urlBase = urlBase.replace(/\/$/, '') + '/api'
+}
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+    baseURL: urlBase,
     timeout: 10000,
     headers: { 'Content-Type': 'application/json' },
 })
