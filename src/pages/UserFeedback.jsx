@@ -88,18 +88,18 @@ const UserFeedback = () => {
     const radarItems = data.radarData || [];
 
     return (
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }} id="report-content">
-            <header className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '100px 24px 60px 24px', minHeight: '100vh' }} id="report-content">
+            <header className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
                 <div className="flex items-center gap-5">
-                    <div className="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center text-blue-500">
+                    <div className="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center text-blue-500 shrink-0">
                         <UserCircle size={40} />
                     </div>
                     <div>
                         <h1 className="text-3xl font-black">{data.colaborador.nome || 'Usuário'}</h1>
-                        <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">{data.colaborador.cargo || 'Colaborador'} • {data.colaborador.equipe?.nome || 'Equipe'}</p>
+                        <p className="text-slate-500 font-bold uppercase text-xs tracking-widest mt-1">{data.colaborador.cargo || 'Colaborador'} • {data.colaborador.equipe?.nome || 'Equipe'}</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                     <button
                         onClick={handleDownload}
                         className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold transition-all border border-white/10 flex items-center gap-2 text-sm"
@@ -116,7 +116,7 @@ const UserFeedback = () => {
             </header>
 
             {autoPendente && (
-                <div className="mb-6 p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="my-5 p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="flex items-center gap-4 text-center sm:text-left">
                         <span className="text-4xl">⭐</span>
                         <div>
@@ -134,7 +134,7 @@ const UserFeedback = () => {
             )}
 
             {pendentes.length > 0 && (
-                <div className="mb-8 p-6 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="my-5 p-6 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="flex items-center gap-4 text-center sm:text-left">
                         <span className="text-4xl">🎯</span>
                         <div>
@@ -148,57 +148,143 @@ const UserFeedback = () => {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <div className="glass-card p-10">
-                    <div className="flex items-center gap-3 mb-8">
-                        <Award className="text-blue-500" />
-                        <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Soft Skills</h2>
-                    </div>
-                    <RadarPerformance
-                        nomeColaborador="Seu Perfil"
-                        dados={radarItems.map(r => ({ competencia: r.competencia, nota: r.nota }))}
-                    />
-                    <div className="mt-8 grid grid-cols-2 gap-4">
-                        <div className="p-4 bg-white/5 rounded-xl border border-white/5">
-                            <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Média Geral (360°)</p>
-                            <p className="text-2xl font-black">
-                                {radarItems.length > 0
-                                    ? (radarItems.reduce((acc, curr) => acc + (curr.nota || 0), 0) / radarItems.length).toFixed(1)
-                                    : '0.0'}
-                            </p>
-                        </div>
-                        <div className="p-4 bg-white/5 rounded-xl border border-white/5">
-                            <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Autoavaliação</p>
-                            <p className="text-2xl font-black text-blue-500">
-                                {radarItems.filter(r => r.auto !== null).length > 0
-                                    ? (radarItems.reduce((acc, curr) => acc + (curr.auto || 0), 0) / radarItems.filter(r => r.auto !== null).length).toFixed(1)
-                                    : '0.0'}
-                            </p>
-                        </div>
-                    </div>
+            {/* ===== SEÇÃO RADAR ===== */}
+            <div className="glass-card p-8 sm:p-10 mb-10">
+                <div className="flex items-center gap-3 mb-8">
+                    <Award className="text-blue-500" />
+                    <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Soft Skills</h2>
                 </div>
-
-                <div className="space-y-6">
-                    <div className="glass-card p-8">
-                        <h2 className="font-bold flex items-center gap-3 mb-6">
-                            <MessageSquare className="text-blue-400" /> Insights de Feedback
-                        </h2>
-                        <div className="space-y-4">
-                            <div className="p-6 bg-white/5 rounded-2xl border-l-4 border-blue-500">
-                                <p className="text-slate-300 italic text-sm leading-relaxed">
-                                    "Excelente proatividade e comunicação. Como ponto de melhoria, foque na gestão de tempo em tarefas complexas."
-                                </p>
-                                <p className="mt-3 text-[10px] font-black text-slate-600 uppercase">Consolidado 360°</p>
-                            </div>
-                        </div>
+                <RadarPerformance
+                    nomeColaborador="Seu Perfil"
+                    dados={radarItems.map(r => ({ competencia: r.competencia, nota: r.nota }))}
+                />
+                <div className="mt-8 grid grid-cols-2 gap-6">
+                    <div className="p-5 bg-white/5 rounded-xl border border-white/5">
+                        <p className="text-[10px] font-bold text-slate-500 uppercase mb-2">Média Geral (360°)</p>
+                        <p className="text-2xl font-black">
+                            {radarItems.length > 0
+                                ? (radarItems.reduce((acc, curr) => acc + (curr.nota || 0), 0) / radarItems.length).toFixed(1)
+                                : '0.0'}
+                        </p>
                     </div>
-
-                    <div className="p-6 bg-blue-600/10 rounded-2xl border border-blue-500/20">
-                        <p className="text-sm font-medium text-blue-400">
-                            📢 Sua comparação mostra que sua percepção interna está alinhada com a equipe em 85% das competências.
+                    <div className="p-5 bg-white/5 rounded-xl border border-white/5">
+                        <p className="text-[10px] font-bold text-slate-500 uppercase mb-2">Autoavaliação</p>
+                        <p className="text-2xl font-black text-blue-500">
+                            {radarItems.filter(r => r.auto !== null).length > 0
+                                ? (radarItems.reduce((acc, curr) => acc + (curr.auto || 0), 0) / radarItems.filter(r => r.auto !== null).length).toFixed(1)
+                                : '0.0'}
                         </p>
                     </div>
                 </div>
+            </div>
+
+            {/* ===== SEÇÃO NOTIFICAÇÕES ===== */}
+            <div className="glass-card p-8 sm:p-10">
+                <h2 className="font-bold flex items-center gap-3 mb-8 text-lg">
+                    <MessageSquare className="text-blue-400" size={22} /> Histórico de Notificações e Planos de Ação
+                </h2>
+
+                {!data.colaborador.notificacoes || data.colaborador.notificacoes.length === 0 ? (
+                    <div className="text-center p-8 bg-white/5 rounded-2xl border border-white/5">
+                        <p className="text-slate-400 text-sm">Nenhum feedback da liderança registrado ainda.</p>
+                    </div>
+                ) : (() => {
+                    const novas = data.colaborador.notificacoes.filter(n => !n.lida);
+                    const lidas = data.colaborador.notificacoes.filter(n => n.lida);
+
+                    const renderNotif = (notif, index, isLida) => {
+                        let expColor = 'bg-slate-500/10 border-slate-500/30 text-slate-400';
+                        let expText = 'N/A';
+                        if (notif.expectativaSelecionada === 'critico') { expColor = 'bg-red-500/10 border-red-500/30 text-red-500'; expText = 'Crítico: Ação Imediata'; }
+                        else if (notif.expectativaSelecionada === 'desenvolvimento') { expColor = 'bg-yellow-500/10 border-yellow-500/30 text-yellow-500'; expText = 'Atenção e Foco'; }
+                        else if (notif.expectativaSelecionada === 'atingiu') { expColor = 'bg-green-500/10 border-green-500/30 text-green-500'; expText = 'Acelerar Potencial'; }
+                        else if (notif.expectativaSelecionada === 'excedeu') { expColor = 'bg-blue-500/10 border-blue-500/30 text-blue-500'; expText = 'Exigência Técnica'; }
+
+                        return (
+                            <div key={`${isLida ? 'lida' : 'nova'}-${index}`} className={`${isLida ? 'opacity-50' : ''}`}>
+                                <div className={`p-6 rounded-2xl border-l-4 ${isLida ? 'bg-white/[0.02] border-slate-600' : 'bg-white/5 border-blue-500'}`}>
+                                    <div className="flex flex-wrap justify-between items-center gap-3 mb-5">
+                                        <span className="text-xs font-black text-slate-500 uppercase tracking-widest">
+                                            {isLida ? '✅ Feedback Lido' : '🔵 Novo Feedback da Liderança'}
+                                        </span>
+                                        <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border ${expColor}`}>
+                                            {expText}
+                                        </span>
+                                    </div>
+
+                                    <div className="bg-black/20 p-5 rounded-xl mb-5">
+                                        <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                                            {notif.planoMelhoria}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex flex-wrap items-center justify-between gap-4">
+                                        {notif.data && (
+                                            <span className="text-xs text-slate-500">Enviado em {new Date(notif.data).toLocaleDateString('pt-BR')}</span>
+                                        )}
+                                        {!isLida && (
+                                            <button
+                                                onClick={async () => {
+                                                    try {
+                                                        await api.post(`/dashboard/colaborador/${usuario.id}/notificacoes/ler`, { hash: notif.hashOriginal });
+                                                        setData(prev => ({
+                                                            ...prev,
+                                                            colaborador: {
+                                                                ...prev.colaborador,
+                                                                notificacoes: prev.colaborador.notificacoes.map((n) =>
+                                                                    n.hashOriginal === notif.hashOriginal ? { ...n, lida: true } : n
+                                                                )
+                                                            }
+                                                        }));
+                                                    } catch (err) {
+                                                        console.error('Erro ao marcar como lida:', err);
+                                                    }
+                                                }}
+                                                className="px-5 py-2.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                                            >
+                                                ✅ Marcar como Lida
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {notif.reuniaoAgendada && !isLida && (
+                                    <div className="p-5 mt-4 bg-indigo-500/10 rounded-xl border border-indigo-500/30 flex items-center gap-4">
+                                        <span className="text-2xl shrink-0">🔔</span>
+                                        <div>
+                                            <div className="text-sm font-bold text-indigo-300">Reunião 1:1 Solicitada</div>
+                                            <div className="text-xs text-indigo-400/80 mt-1">A liderança sugeriu uma reunião de alinhamento com você para discutir este plano de ação.</div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    };
+
+                    return (
+                        <div className="space-y-6">
+                            {novas.length > 0 && novas.map((notif, i) => renderNotif(notif, i, false))}
+
+                            {novas.length === 0 && (
+                                <div className="text-center p-5 bg-green-500/5 rounded-xl border border-green-500/10">
+                                    <p className="text-green-400 text-sm font-medium">🎉 Todas as notificações foram lidas!</p>
+                                </div>
+                            )}
+
+                            {lidas.length > 0 && (
+                                <details className="group">
+                                    <summary className="cursor-pointer text-xs font-bold text-slate-500 uppercase tracking-widest hover:text-slate-300 transition-colors py-4 border-t border-white/5 mt-6 list-none flex items-center gap-2">
+                                        <span className="group-open:rotate-90 transition-transform">▶</span>
+                                        Histórico de feedbacks lidos ({lidas.length})
+                                    </summary>
+                                    <div className="space-y-5 mt-4">
+                                        {lidas.map((notif, i) => renderNotif(notif, i, true))}
+                                    </div>
+                                </details>
+                            )}
+                        </div>
+                    );
+                })()}
             </div>
         </div>
     );
