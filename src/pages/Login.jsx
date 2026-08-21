@@ -35,19 +35,30 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-black">
-            {/* Card de login centralizado */}
-            <div className="glass-card animar-entrada w-full max-w-[420px] p-10">
+        <div className="login-page">
+            <section className="login-visual" aria-label="Gestão de desempenho">
+                <div className="login-visual-image" />
+                <div className="login-visual-content">
+                    <div className="login-brand-mark">
+                        <img src="/logo_gestao.png" alt="Gestão091 Logo" />
+                    </div>
+                    <div className="login-visual-copy">
+                        <span className="login-kicker"><Shield size={15} /> Gestão de pessoas</span>
+                        <h1>Desempenho que vira evolução.</h1>
+                        <p>Decisões mais claras, feedbacks mais humanos e equipes preparadas para o próximo ciclo.</p>
+                    </div>
+                    <div className="login-visual-footer">Gestão091 <span /> Performance & desenvolvimento</div>
+                </div>
+            </section>
+
+            <section className="login-panel">
+                <div className="glass-card login-card animar-entrada">
 
                 {/* Logo / Cabeçalho */}
-                <div className="text-center mb-10">
-                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(59,130,246,0.4)] overflow-hidden">
-                        <img src="/logo_gestao.png" alt="Gestão091 Logo" className="w-full h-full object-cover" />
-                    </div>
-                    <h1 className="text-3xl font-black tracking-tight text-white">Gestão091</h1>
-                    <p className="text-slate-500 font-medium text-sm mt-1">
-                        Sistema de Gestão de Desempenho
-                    </p>
+                <div className="login-heading">
+                    <span className="login-eyebrow">Área restrita</span>
+                    <h2>Acesse sua conta</h2>
+                    <p>Entre para acompanhar os ciclos e feedbacks da sua equipe.</p>
                 </div>
 
                 {/* Formulário de login */}
@@ -114,7 +125,8 @@ export default function Login() {
                     Admin: <code className="text-slate-300">admin@senai.br</code> / <code className="text-slate-300">senha123</code><br />
                     Colaborador: <code className="text-slate-300">joao.silva@senai.br</code> / <code className="text-slate-300">senha123</code>
                 </div>
-            </div>
+                </div>
+            </section>
         </div>
     )
 }
