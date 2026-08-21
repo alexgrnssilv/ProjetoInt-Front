@@ -67,14 +67,15 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }}>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+        <div className="page-shell dashboard-page" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }}>
+            <div className="page-header dashboard-header">
                 <div>
+                    <span className="page-kicker">Visão executiva</span>
                     <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Performance Ranking</h1>
                     <p className="text-slate-500 font-medium">Análise em tempo real baseada em feedback 360°</p>
                 </div>
 
-                <div className="flex flex-wrap gap-4 items-center">
+                <div className="page-actions flex flex-wrap gap-4 items-center">
                     <Link to="/admin/gestao" className="glass p-3 rounded-xl hover:bg-white/10 transition-all text-slate-400 flex items-center gap-2">
                         <Settings size={18} /> <span className="text-sm font-bold">Gestão</span>
                     </Link>
@@ -100,7 +101,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="metric-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {metricas.map((m) => (
                     <div key={m.id} className="glass-card p-6 group hover:scale-[1.02] transition-all">
                         <div className="flex items-center justify-between mb-4">
@@ -112,8 +113,8 @@ const AdminDashboard = () => {
                 ))}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 glass-card overflow-hidden" id="ranking-table">
+            <div className="content-grid dashboard-content grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="content-panel ranking-panel lg:col-span-2 glass-card overflow-hidden" id="ranking-table">
                     <div className="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/40">
                         <h3 className="font-black text-sm uppercase tracking-widest text-slate-400">Ranking Geral</h3>
                         <div className="flex gap-3">
@@ -170,8 +171,8 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                <div className="space-y-6">
-                    <div className="glass-card p-6">
+                <div className="side-column space-y-6">
+                    <div className="content-panel glass-card p-6">
                         <h3 className="font-black text-xs uppercase tracking-widest text-slate-500 mb-6">Preview Top #1</h3>
                         {data?.colaboradores && data.colaboradores[0] && data.colaboradores[0].radarData?.length > 0 ? (
                             <RadarPerformance
