@@ -20,7 +20,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 const RotaPrivada = ({ children, papelExigido }) => {
   const { usuario, carregando } = useAuth();
 
-  if (carregando) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Carregando...</div>;
+  if (carregando) return <div className="min-h-screen app-state flex items-center justify-center text-white">Carregando...</div>;
 
   if (!usuario) return <Navigate to="/login" />;
 
@@ -35,7 +35,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-slate-950">
+        <div className="min-h-screen app-shell">
           <Routes>
             {/* Rota Pública */}
             <Route path="/login" element={<Login />} />
@@ -87,7 +87,7 @@ function App() {
 
             {/* Redirecionamento Padrão */}
             <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="*" element={<div className="text-white p-10 text-center">404 - Página não encontrada</div>} />
+            <Route path="*" element={<div className="app-state text-white p-10 text-center">404 - Página não encontrada</div>} />
           </Routes>
         </div>
       </Router>
