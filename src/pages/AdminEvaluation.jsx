@@ -117,14 +117,14 @@ const AdminEvaluation = () => {
     if (loading) return <div className="min-h-screen pt-20 text-center text-slate-500 font-bold animate-pulse">Carregando dados...</div>;
 
     return (
-        <div className="w-full min-h-screen flex justify-center items-start p-4 sm:p-8">
-            <div className="w-full max-w-3xl pt-10 sm:pt-20">
-                <button onClick={() => navigate('/admin/gestao')} className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors text-sm font-bold">
+        <div className="assessment-page w-full min-h-screen flex justify-center items-start p-4 sm:p-8">
+            <div className="assessment-shell w-full max-w-3xl pt-10 sm:pt-20">
+                <button onClick={() => navigate('/admin/gestao')} className="back-link flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors text-sm font-bold">
                     <ChevronLeft size={16} /> Voltar para Gestão
                 </button>
 
                 {step === 1 && (
-                    <div className="glass-card p-10 text-center relative overflow-hidden">
+                    <div className="assessment-intro glass-card p-10 text-center relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
                         <ClipboardList size={60} className="mx-auto text-blue-500 mb-6 relative z-10" />
                         <h1 className="text-3xl font-black mb-2 relative z-10">Avaliação de Liderança</h1>
@@ -148,7 +148,7 @@ const AdminEvaluation = () => {
 
                 {step === 2 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5">
+                        <div className="assessment-summary flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5">
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
                                 <span>Avaliando:</span> <span className="text-white bg-white/10 px-2 py-1 rounded-md">{avaliado.nome}</span>
                             </div>
@@ -170,7 +170,7 @@ const AdminEvaluation = () => {
                         </div>
 
                         {competencias.map(comp => (
-                            <div key={comp.id} className="glass-card p-8 group">
+                            <div key={comp.id} className="score-panel glass-card p-8 group">
                                 <h3 className="text-xl font-bold mb-6 text-slate-200 text-center">{comp.nome}</h3>
                                 <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(score => {
@@ -208,7 +208,7 @@ const AdminEvaluation = () => {
 
                         {/* BLOCO CONDICIONAL DE FEEDBACK E PLANO DE AÇÃO */}
                         {Object.keys(avaliacoes).length === competencias.length && (Object.values(avaliacoes).reduce((a, b) => a + b, 0) / competencias.length < 7) && (
-                            <div className="glass-card p-10 mt-10 border-indigo-500/30 shadow-[0_0_30px_rgba(99,102,241,0.15)] animate-in fade-in slide-in-from-bottom-8 duration-700">
+                            <div className="action-plan score-panel glass-card p-10 mt-10 border-indigo-500/30 shadow-[0_0_30px_rgba(99,102,241,0.15)] animate-in fade-in slide-in-from-bottom-8 duration-700">
                                 <div className="mb-8">
                                     <h3 className="text-2xl font-black text-white mb-2">Plano de Ação e Feedback 🎯</h3>
                                     <p className="text-slate-400 text-sm">
@@ -275,7 +275,7 @@ const AdminEvaluation = () => {
                 )}
 
                 {step === 3 && (
-                    <div className="glass-card p-12 text-center animate-in zoom-in duration-500">
+                    <div className="assessment-success glass-card p-12 text-center animate-in zoom-in duration-500">
                         <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500 relative">
                             <div className="absolute inset-0 border-4 border-green-500/30 rounded-full animate-ping"></div>
                             <CheckCircle2 size={48} className="relative z-10" />
