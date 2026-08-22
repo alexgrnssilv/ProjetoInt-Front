@@ -251,7 +251,7 @@ const UserFeedback = () => {
                                 </div>
 
                                 {notif.reuniaoAgendada && !isLida && (
-                                    <div className="p-5 mt-4 bg-indigo-500/10 rounded-xl border border-indigo-500/30 flex items-center gap-4">
+                                    <div className="meeting-alert p-5 mt-4 bg-indigo-500/10 rounded-xl border border-indigo-500/30 flex items-center gap-4">
                                         <span className="text-2xl shrink-0">🔔</span>
                                         <div>
                                             <div className="text-sm font-bold text-indigo-300">Reunião 1:1 Solicitada</div>

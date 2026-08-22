@@ -248,7 +248,7 @@ const AdminEvaluation = () => {
                                         ></textarea>
                                     </div>
 
-                                    <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
+                                    <div className="meeting-toggle flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
                                         <button
                                             onClick={() => setAgendarReuniao(!agendarReuniao)}
                                             className={`w-8 h-8 rounded-lg border-2 flex items-center justify-center transition-all ${agendarReuniao ? 'bg-indigo-500 border-indigo-500' : 'bg-transparent border-white/20 hover:border-white/40'}`}

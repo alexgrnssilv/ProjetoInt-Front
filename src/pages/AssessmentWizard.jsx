@@ -93,11 +93,11 @@ const AssessmentWizard = () => {
                             <p className="text-slate-500 font-bold mb-6 animate-pulse">Carregando dados...</p>
                         ) : isAuto ? (
                             !autoAvaliacaoPendente ? (
-                                <div className="mb-8 p-6 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400 font-bold">
+                                <div className="assessment-state mb-8 p-6 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400 font-bold">
                                     Você já concluiu sua autoavaliação neste ciclo! 🎉
                                 </div>
                             ) : (
-                                <div className="mb-8 p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 text-blue-400 font-bold">
+                                <div className="assessment-state mb-8 p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 text-blue-400 font-bold">
                                     Pronto para começar sua autoavaliação!
                                 </div>
                             )
@@ -120,7 +120,7 @@ const AssessmentWizard = () => {
                                 </label>
                             </div>
                         ) : (
-                            <div className="mb-8 p-6 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400 font-bold">
+                            <div className="assessment-state mb-8 p-6 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400 font-bold">
                                 Você não tem colegas pendentes para avaliar neste ciclo! 🎉
                             </div>
                         )}
