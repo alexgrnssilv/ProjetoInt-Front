@@ -6,7 +6,9 @@ import {
     MessageSquare,
     UserCircle,
     Award,
-    LogOut
+    LogOut,
+    Bell,
+    X
 } from 'lucide-react';
 import RadarPerformance from '../components/RadarPerformance';
 import { useAuth } from '../context/AuthContext';
@@ -20,6 +22,7 @@ const UserFeedback = () => {
     const [erro, setErro] = useState(null);
     const [pendentes, setPendentes] = useState([]);
     const [autoPendente, setAutoPendente] = useState(false);
+    const [notificacoesAbertas, setNotificacoesAbertas] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -86,6 +89,27 @@ const UserFeedback = () => {
     );
 
     const radarItems = data.radarData || [];
+    const notificacoesRecebidas = data.colaborador.notificacoes || [];
+    const notificacoesNaoLidas = notificacoesRecebidas.filter(n => !n.lida);
+    const reunioesPendentes = notificacoesNaoLidas.filter(notif => notif.reuniaoAgendada).length;
+    const totalNotificacoes = notificacoesNaoLidas.length + reunioesPendentes + pendentes.length + (autoPendente ? 1 : 0);
+
+    const marcarNotificacaoComoVista = async (hashOriginal) => {
+        try {
+            await api.post(`/dashboard/colaborador/${usuario.id}/notificacoes/ler`, { hash: hashOriginal });
+            setData(prev => ({
+                ...prev,
+                colaborador: {
+                    ...prev.colaborador,
+                    notificacoes: prev.colaborador.notificacoes.map(notif => (
+                        notif.hashOriginal === hashOriginal ? { ...notif, lida: true } : notif
+                    ))
+                }
+            }));
+        } catch (err) {
+            console.error('Erro ao marcar notificação como vista:', err);
+        }
+    };
 
     return (
         <div className="page-shell feedback-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '100px 24px 60px 24px', minHeight: '100vh' }} id="report-content">
@@ -100,6 +124,86 @@ const UserFeedback = () => {
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
+                    <div className="notification-center">
+                        <button
+                            type="button"
+                            className={`notification-bell ${totalNotificacoes > 0 ? 'has-notifications' : ''}`}
+                            onClick={() => setNotificacoesAbertas(!notificacoesAbertas)}
+                            aria-expanded={notificacoesAbertas}
+                            aria-controls="notification-popover"
+                            title="Abrir notificações"
+                        >
+                            <Bell size={18} />
+                            {totalNotificacoes > 0 && <span>{totalNotificacoes > 9 ? '9+' : totalNotificacoes}</span>}
+                        </button>
+
+                        {notificacoesAbertas && (
+                            <div className="notification-popover" id="notification-popover">
+                                <div className="notification-popover-header">
+                                    <div>
+                                        <span>Central de atividade</span>
+                                        <strong>Notificações</strong>
+                                    </div>
+                                    <button type="button" onClick={() => setNotificacoesAbertas(false)} aria-label="Fechar notificações">
+                                        <X size={16} />
+                                    </button>
+                                </div>
+
+                                <div className="notification-popover-list">
+                                    {notificacoesNaoLidas.map((notif, index) => (
+                                        <div className="notification-popover-item" key={notif.hashOriginal || index}>
+                                            <span className="notification-popover-icon notification-popover-icon-feedback"><MessageSquare size={15} /></span>
+                                            <div>
+                                                <strong>Novo feedback da liderança</strong>
+                                                <p>{notif.planoMelhoria}</p>
+                                                <button type="button" className="notification-popover-action" onClick={() => marcarNotificacaoComoVista(notif.hashOriginal)}>
+                                                    Marcar como visto
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {notificacoesRecebidas.filter(notif => notif.reuniaoAgendada).map((notif, index) => (
+                                        <div className={`notification-popover-item is-meeting${notif.lida ? ' is-read' : ''}`} key={`meeting-${notif.hashOriginal || index}`}>
+                                            <span className="notification-popover-icon"><Bell size={15} /></span>
+                                            <div>
+                                                <strong>{notif.lida ? 'Reunião 1:1 registrada' : 'Reunião 1:1 solicitada'}</strong>
+                                                <p>{notif.lida ? 'Solicitação já vista. Consulte as informações no feedback recebido.' : 'A liderança sugeriu uma conversa de alinhamento.'}</p>
+                                                {!notif.lida && (
+                                                    <button type="button" className="notification-popover-action" onClick={() => marcarNotificacaoComoVista(notif.hashOriginal)}>
+                                                        Marcar como visto
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {autoPendente && (
+                                        <div className="notification-popover-item">
+                                            <span className="notification-popover-icon notification-popover-icon-blue"><Award size={15} /></span>
+                                            <div>
+                                                <strong>Autoavaliação pendente</strong>
+                                                <p>Sua leitura pessoal ainda aguarda resposta.</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {pendentes.length > 0 && (
+                                        <div className="notification-popover-item">
+                                            <span className="notification-popover-icon notification-popover-icon-orange"><Award size={15} /></span>
+                                            <div>
+                                                <strong>{pendentes.length} avaliação(ões) de pares</strong>
+                                                <p>Há colegas aguardando seu feedback.</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {totalNotificacoes === 0 && (
+                                        <div className="notification-popover-empty">
+                                            <Bell size={20} />
+                                            <span>Tudo em dia por aqui.</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
                     <button
                         onClick={handleDownload}
                         className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold transition-all border border-white/10 flex items-center gap-2 text-sm"
@@ -151,7 +255,7 @@ const UserFeedback = () => {
             </div>
 
             {/* ===== SEÇÃO RADAR ===== */}
-            <div className="content-panel feedback-panel glass-card p-8 sm:p-10 mb-10">
+            <div className="content-panel feedback-panel feedback-performance-panel glass-card p-8 sm:p-10 mb-10">
                 <div className="flex items-center gap-3 mb-8">
                     <Award className="text-blue-500" />
                     <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Soft Skills</h2>
@@ -161,7 +265,7 @@ const UserFeedback = () => {
                     dados={radarItems.map(r => ({ competencia: r.competencia, nota: r.nota }))}
                 />
                 <div className="mt-8 grid grid-cols-2 gap-6">
-                    <div className="p-5 bg-white/5 rounded-xl border border-white/5">
+                    <div className="feedback-metric">
                         <p className="text-[10px] font-bold text-slate-500 uppercase mb-2">Média Geral (360°)</p>
                         <p className="text-2xl font-black">
                             {radarItems.length > 0
@@ -169,7 +273,7 @@ const UserFeedback = () => {
                                 : '0.0'}
                         </p>
                     </div>
-                    <div className="p-5 bg-white/5 rounded-xl border border-white/5">
+                    <div className="feedback-metric">
                         <p className="text-[10px] font-bold text-slate-500 uppercase mb-2">Autoavaliação</p>
                         <p className="text-2xl font-black text-blue-500">
                             {radarItems.filter(r => r.auto !== null).length > 0
@@ -181,7 +285,7 @@ const UserFeedback = () => {
             </div>
 
             {/* ===== SEÇÃO NOTIFICAÇÕES ===== */}
-            <div className="content-panel feedback-panel glass-card p-8 sm:p-10">
+            <div hidden className="content-panel feedback-panel feedback-history-panel glass-card p-8 sm:p-10">
                 <h2 className="font-bold flex items-center gap-3 mb-8 text-lg">
                     <MessageSquare className="text-blue-400" size={22} /> Histórico de Notificações e Planos de Ação
                 </h2>
@@ -204,25 +308,25 @@ const UserFeedback = () => {
 
                         return (
                             <div key={`${isLida ? 'lida' : 'nova'}-${index}`} className={`${isLida ? 'opacity-50' : ''}`}>
-                                <div className={`p-6 rounded-2xl border-l-4 ${isLida ? 'bg-white/[0.02] border-slate-600' : 'bg-white/5 border-blue-500'}`}>
-                                    <div className="flex flex-wrap justify-between items-center gap-3 mb-5">
-                                        <span className="text-xs font-black text-slate-500 uppercase tracking-widest">
+                                <div className={`notification-item ${isLida ? 'is-read' : 'is-new'}`}>
+                                    <div className="notification-header">
+                                        <span className="notification-status">
                                             {isLida ? '✅ Feedback Lido' : '🔵 Novo Feedback da Liderança'}
                                         </span>
-                                        <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border ${expColor}`}>
+                                        <span className={`notification-expectation ${expColor}`}>
                                             {expText}
                                         </span>
                                     </div>
 
-                                    <div className="bg-black/20 p-5 rounded-xl mb-5">
-                                        <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                                    <div className="notification-message">
+                                        <p>
                                             {notif.planoMelhoria}
                                         </p>
                                     </div>
 
-                                    <div className="flex flex-wrap items-center justify-between gap-4">
+                                    <div className="notification-footer">
                                         {notif.data && (
-                                            <span className="text-xs text-slate-500">Enviado em {new Date(notif.data).toLocaleDateString('pt-BR')}</span>
+                                            <span>Enviado em {new Date(notif.data).toLocaleDateString('pt-BR')}</span>
                                         )}
                                         {!isLida && (
                                             <button
@@ -242,7 +346,7 @@ const UserFeedback = () => {
                                                         console.error('Erro ao marcar como lida:', err);
                                                     }
                                                 }}
-                                                className="px-5 py-2.5 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                                                className="notification-read-button"
                                             >
                                                 ✅ Marcar como Lida
                                             </button>
