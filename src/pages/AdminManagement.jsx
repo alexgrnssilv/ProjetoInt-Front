@@ -163,7 +163,7 @@ const AdminManagement = () => {
                 <div>
                     <span className="page-kicker">Administração</span>
                 <h1 className="text-4xl font-black text-gradient mb-2">Gestão do Sistema</h1>
-                <p className="text-slate-400">Controle total de usuários e equipes SkillTrack 360</p>
+                <p className="text-slate-400">Controle total de usuários e equipes SoftSkills 360</p>
                 </div>
             </header>
 
