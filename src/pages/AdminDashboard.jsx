@@ -9,18 +9,21 @@ import {
     ArrowDownRight,
     Settings,
     Download,
-    LogOut
+    LogOut,
+    LayoutDashboard,
+    UsersRound,
+    ClipboardCheck,
+    ChevronDown
 } from 'lucide-react';
 import RadarPerformance from '../components/RadarPerformance';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { generatePDF } from '../utils/pdfGenerator';
 
 const AdminDashboard = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [equipe, setEquipe] = useState('Todos');
-    const navigate = useNavigate();
-
+    const [navbarAberta, setNavbarAberta] = useState(false);
     const fetchStats = async () => {
         try {
             const res = await api.get('/dashboard/stats', {
@@ -68,11 +71,51 @@ const AdminDashboard = () => {
 
     return (
         <main className="page-shell dashboard-page">
+            <nav className={`admin-navbar${navbarAberta ? ' open' : ''}`} aria-label="Navegação administrativa">
+                <button
+                    type="button"
+                    className="admin-brand-toggle"
+                    onClick={() => setNavbarAberta(!navbarAberta)}
+                    aria-expanded={navbarAberta}
+                    aria-controls="admin-navigation-links"
+                    title={navbarAberta ? 'Recolher navegação' : 'Abrir navegação'}
+                >
+                    <span className="admin-brand-mark">G</span>
+                    <span>
+                        <strong>SoftSkills 360</strong>
+                    </span>
+                    <ChevronDown className="admin-navbar-chevron" size={17} aria-hidden="true" />
+                </button>
+                <div className="admin-nav-drawer" id="admin-navigation-links">
+                  <div className="admin-nav-links">
+                    <NavLink to="/admin" end className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
+                        <LayoutDashboard size={16} /> Dashboard
+                    </NavLink>
+                    <NavLink to="/admin/gestao" className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
+                        <UsersRound size={16} /> Gestão de pessoas
+                    </NavLink>
+                    <NavLink to="/admin/avaliar" className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
+                        <ClipboardCheck size={16} /> Avaliações
+                    </NavLink>
+                  </div>
+                  <div className="admin-navbar-context">
+                      <span className="admin-status-dot" />
+                      <span>Ciclo em andamento</span>
+                  </div>
+                </div>
+            </nav>
+
             <div className="page-header dashboard-header">
                 <div>
                     <span className="page-kicker">Visão executiva</span>
-                    <h1>Performance Ranking</h1>
-                    <p>Análise em tempo real baseada em feedback 360°</p>
+                    <h1>Performance <em>Ranking</em></h1>
+                    <p>Uma leitura clara da evolução das suas equipes.</p>
+                </div>
+
+                <div className="dashboard-hero-score" aria-label="Média global do ciclo">
+                    <span>Média global</span>
+                    <strong>{data.resumo.mediaGlobal}</strong>
+                    <small>/ 10.0</small>
                 </div>
 
                 <div className="page-actions">

@@ -1,5 +1,5 @@
 // =====================================================
-// Login.jsx — Página de Autenticação Gestão091
+// Login.jsx — Página de Autenticação SoftSkills 360
 // =====================================================
 
 import { useState } from 'react'
@@ -40,14 +40,15 @@ export default function Login() {
                 <div className="login-visual-image" />
                 <div className="login-visual-content">
                     <div className="login-brand-mark">
-                        <img src="/logo_gestao.png" alt="Gestão091 Logo" />
+                        <img src="/logo_gestao.png" alt="SoftSkills 360 Logo" />
+                        <span className="login-brand-name">SoftSkills 360</span>
                     </div>
                     <div className="login-visual-copy">
                         <span className="login-kicker"><Shield size={15} /> Gestão de pessoas</span>
                         <h1>Desempenho que vira evolução.</h1>
                         <p>Decisões mais claras, feedbacks mais humanos e equipes preparadas para o próximo ciclo.</p>
                     </div>
-                    <div className="login-visual-footer">Gestão091 <span /> Performance & desenvolvimento</div>
+                    <div className="login-visual-footer">SoftSkills 360 <span /> Performance & desenvolvimento</div>
                 </div>
             </section>
 

@@ -22,7 +22,7 @@ import {
  */
 const RadarPerformance = ({ dados, nomeColaborador }) => {
 
-    // Lógica para determinar a cor baseada na média (Escala Gestão091 1 a 10)
+    // Lógica para determinar a cor baseada na média (Escala SoftSkills 360 de 1 a 10)
     const calcularMedia = () => {
         if (!dados || dados.length === 0) return 0;
         const soma = dados.reduce((acc, item) => acc + item.nota, 0);
@@ -30,6 +30,13 @@ const RadarPerformance = ({ dados, nomeColaborador }) => {
     };
 
     const media = calcularMedia();
+
+    const competenciaMaisForte = dados?.reduce((anterior, atual) => (
+        atual.nota > anterior.nota ? atual : anterior
+    ), dados[0]);
+    const competenciaPrioritaria = dados?.reduce((anterior, atual) => (
+        atual.nota < anterior.nota ? atual : anterior
+    ), dados[0]);
 
     // Definição de cores conforme o nível de desempenho
     const obterCorPorMedia = (valor) => {
@@ -42,14 +49,17 @@ const RadarPerformance = ({ dados, nomeColaborador }) => {
     const corPrincipal = obterCorPorMedia(media);
 
     return (
-        <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl shadow-lg animar-entrada">
-            <div className="mb-4">
-                <h3 className="text-lg font-bold text-slate-100 uppercase tracking-wider">
-                    Perfil de Competências
-                </h3>
-                <p className="text-sm text-slate-400">
-                    Colaborador: <span className="text-slate-200 font-semibold">{nomeColaborador}</span>
-                </p>
+        <div className="radar-card animar-entrada">
+            <div className="radar-card-header">
+                <div>
+                    <span className="radar-card-eyebrow">Feedback 360</span>
+                    <h3>Perfil de competências</h3>
+                    <p>{nomeColaborador}</p>
+                </div>
+                <div className="radar-score">
+                    <strong>{media.toFixed(1)}</strong>
+                    <span>/ 10</span>
+                </div>
             </div>
 
             <div className="h-[300px] w-full">
@@ -81,14 +91,17 @@ const RadarPerformance = ({ dados, nomeColaborador }) => {
                 </ResponsiveContainer>
             </div>
 
-            <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50">
-                <h4 className="text-sm font-bold text-blue-400 mb-2 uppercase">Por que fizemos assim? (Explicação Didática)</h4>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                    <strong>O Gráfico de Radar</strong> é a escolha ideal para <em>soft skills</em> porque ele permite visualizar o "equilíbrio" entre diferentes dimensões ao mesmo tempo.
-                    Enquanto um gráfico de colunas destaca apenas qual competência é maior ou menor, o Radar mostra como elas se integram.
-                    Uma área harmoniosa e ampla indica um profissional equilibrado, enquanto pontas muito curtas revelam lacunas específicas que precisam de atenção imediata.
-                    É uma ferramenta visual poderosa para <strong>feedbacks 360°</strong>.
-                </p>
+            <div className="radar-reading">
+                <div>
+                    <span>Maior domínio</span>
+                    <strong>{competenciaMaisForte?.competencia || '—'}</strong>
+                    <small>{competenciaMaisForte?.nota ?? '—'} / 10</small>
+                </div>
+                <div>
+                    <span>Foco de evolução</span>
+                    <strong>{competenciaPrioritaria?.competencia || '—'}</strong>
+                    <small>{competenciaPrioritaria?.nota ?? '—'} / 10</small>
+                </div>
             </div>
         </div>
     );
