@@ -229,5 +229,3 @@ const AssessmentWizard = () => {
 };
 
 export default AssessmentWizard;
-
-export default AssessmentWizard;
