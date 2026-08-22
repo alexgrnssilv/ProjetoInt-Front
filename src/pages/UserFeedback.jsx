@@ -88,8 +88,8 @@ const UserFeedback = () => {
     const radarItems = data.radarData || [];
 
     return (
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '100px 24px 60px 24px', minHeight: '100vh' }} id="report-content">
-            <header className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
+        <div className="page-shell feedback-page" style={{ maxWidth: '900px', margin: '0 auto', padding: '100px 24px 60px 24px', minHeight: '100vh' }} id="report-content">
+            <header className="page-header feedback-header flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
                 <div className="flex items-center gap-5">
                     <div className="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center text-blue-500 shrink-0">
                         <UserCircle size={40} />
@@ -115,8 +115,9 @@ const UserFeedback = () => {
                 </div>
             </header>
 
+            <div className="feedback-alerts">
             {autoPendente && (
-                <div className="my-5 p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="feedback-alert my-5 p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="flex items-center gap-4 text-center sm:text-left">
                         <span className="text-4xl">⭐</span>
                         <div>
@@ -134,7 +135,7 @@ const UserFeedback = () => {
             )}
 
             {pendentes.length > 0 && (
-                <div className="my-5 p-6 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="feedback-alert my-5 p-6 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="flex items-center gap-4 text-center sm:text-left">
                         <span className="text-4xl">🎯</span>
                         <div>
@@ -147,9 +148,10 @@ const UserFeedback = () => {
                     </button>
                 </div>
             )}
+            </div>
 
             {/* ===== SEÇÃO RADAR ===== */}
-            <div className="glass-card p-8 sm:p-10 mb-10">
+            <div className="content-panel feedback-panel glass-card p-8 sm:p-10 mb-10">
                 <div className="flex items-center gap-3 mb-8">
                     <Award className="text-blue-500" />
                     <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Soft Skills</h2>
@@ -179,7 +181,7 @@ const UserFeedback = () => {
             </div>
 
             {/* ===== SEÇÃO NOTIFICAÇÕES ===== */}
-            <div className="glass-card p-8 sm:p-10">
+            <div className="content-panel feedback-panel glass-card p-8 sm:p-10">
                 <h2 className="font-bold flex items-center gap-3 mb-8 text-lg">
                     <MessageSquare className="text-blue-400" size={22} /> Histórico de Notificações e Planos de Ação
                 </h2>
