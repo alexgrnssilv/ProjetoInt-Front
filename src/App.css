@@ -38,3 +38,338 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Login */
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(28rem, 0.85fr);
+  background: #06101f;
+}
+
+.login-visual {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0b2340;
+}
+
+.login-visual::before,
+.login-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.login-visual::before {
+  width: 34rem;
+  height: 34rem;
+  top: -12rem;
+  right: -8rem;
+  background: rgba(31, 139, 255, 0.24);
+  filter: blur(2px);
+}
+
+.login-visual::after {
+  width: 28rem;
+  height: 28rem;
+  bottom: -14rem;
+  left: -8rem;
+  background: rgba(21, 197, 155, 0.16);
+}
+
+.login-visual-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  z-index: -1;
+  background:
+    linear-gradient(135deg, rgba(6, 16, 31, 0.2), rgba(6, 16, 31, 0.88)),
+    repeating-linear-gradient(120deg, transparent 0 74px, rgba(255, 255, 255, 0.035) 75px 76px);
+}
+
+.login-visual-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(2rem, 6vw, 6rem);
+}
+
+.login-brand-mark img {
+  width: 11rem;
+  height: auto;
+  display: block;
+}
+
+.login-visual-copy {
+  max-width: 38rem;
+  margin: auto 0;
+  padding: 5rem 0;
+}
+
+.login-kicker,
+.login-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6ee7c2;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.login-visual-copy h1 {
+  max-width: 12ch;
+  margin: 1rem 0 1.25rem;
+  color: #fff;
+  font-size: clamp(3rem, 5vw, 5.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.login-visual-copy p {
+  max-width: 34rem;
+  color: #b7c9dd;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.login-visual-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #8ba4bf;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login-visual-footer span {
+  width: 2rem;
+  height: 1px;
+  background: #4d6a87;
+}
+
+.login-panel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem clamp(1.25rem, 5vw, 5rem);
+  background: #f5f8fb;
+}
+
+.login-card {
+  width: min(100%, 31rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  color: #102033;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #dce6ef;
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgba(27, 55, 82, 0.14);
+}
+
+.login-heading {
+  margin-bottom: 2.25rem;
+}
+
+.login-heading h2 {
+  margin: 0.65rem 0 0.5rem;
+  color: #102033;
+  font-size: clamp(1.8rem, 4vw, 2.35rem);
+  line-height: 1.1;
+}
+
+.login-heading p,
+.login-card label {
+  color: #60758a;
+}
+
+.login-card label {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.login-card .input {
+  width: 100%;
+  background: #f8fafc;
+  border-color: #d5e0e9;
+  color: #102033;
+}
+
+.login-card .input::placeholder {
+  color: #91a2b2;
+}
+
+.login-card .input:focus {
+  background: #fff;
+}
+
+.login-card .btn-primario {
+  width: 100%;
+  min-height: 3.1rem;
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    display: block;
+  }
+
+  .login-visual {
+    min-height: 19rem;
+  }
+
+  .login-visual-content {
+    min-height: 19rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .login-brand-mark img {
+    width: 8.5rem;
+  }
+
+  .login-visual-copy {
+    padding: 1.5rem 0 0;
+  }
+
+  .login-visual-copy h1 {
+    max-width: 16ch;
+    margin: 0.6rem 0 0;
+    font-size: clamp(2.25rem, 9vw, 3.5rem);
+  }
+
+  .login-visual-copy p,
+  .login-visual-footer {
+    display: none;
+  }
+
+  .login-panel {
+    min-height: auto;
+    padding: 2rem 1.25rem 3rem;
+  }
+}
+
+/* Match the approved login composition */
+.login-page {
+  grid-template-columns: minmax(0, 55%) minmax(0, 45%);
+  background: #071426;
+}
+
+.login-visual {
+  background: #071426;
+}
+
+.login-visual::before,
+.login-visual::after {
+  display: none;
+}
+
+.login-visual-image {
+  opacity: 1;
+  background:
+    linear-gradient(90deg, rgba(7, 20, 38, 0.56), rgba(7, 20, 38, 0.42)),
+    linear-gradient(0deg, rgba(7, 20, 38, 0.76), transparent 58%),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=85") center / cover no-repeat;
+}
+
+.login-visual-content {
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.login-brand-mark img {
+  width: 3.5rem;
+  padding: 0.65rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.login-visual-copy {
+  max-width: 35rem;
+  padding: 4rem 0;
+}
+
+.login-visual-copy h1 {
+  max-width: 11ch;
+  margin: 2rem 0 1.25rem;
+  font-size: clamp(3rem, 5vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.login-visual-copy p {
+  max-width: 31rem;
+  color: #d0dae6;
+  font-size: 1rem;
+}
+
+.login-panel {
+  background: #071426;
+  padding: 2rem clamp(1.25rem, 6vw, 6rem);
+}
+
+.login-card {
+  width: min(100%, 27rem);
+  padding: clamp(2rem, 4vw, 3.25rem);
+  color: #d8e3ef;
+  background: #101e2d;
+  border-color: #2a3c51;
+  border-radius: 0.9rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+}
+
+.login-heading {
+  margin-bottom: 2.5rem;
+}
+
+.login-heading h2 {
+  margin: 1.2rem 0 0.85rem;
+  color: #f4f8fc;
+  font-size: 2.15rem;
+}
+
+.login-heading p,
+.login-card label {
+  color: #91a5b9;
+}
+
+.login-card .input {
+  min-height: 3.1rem;
+  background: #0b1929;
+  border-color: #2a3c51;
+  color: #e6eef7;
+}
+
+.login-card .input:focus {
+  background: #0b1929;
+  border-color: #27c1b2;
+  box-shadow: 0 0 0 3px rgba(39, 193, 178, 0.14);
+}
+
+.login-card .btn-primario {
+  min-height: 3.25rem;
+  background: #24b9ae;
+  box-shadow: none;
+}
+
+.login-card .btn-primario:hover {
+  background: #31cabe;
+  box-shadow: 0 8px 20px rgba(36, 185, 174, 0.2);
+}
+
+@media (max-width: 900px) {
+  .login-visual {
+    min-height: 17rem;
+  }
+
+  .login-visual-content {
+    min-height: 17rem;
+  }
+
+  .login-visual-copy h1 {
+    margin-top: 0.75rem;
+  }
+}

@@ -119,12 +119,6 @@ export default function Login() {
                     </button>
                 </form>
 
-                {/* Dica de credenciais */}
-                <div className="mt-8 p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-[11px] text-slate-500 leading-relaxed">
-                    <strong className="text-blue-400 block mb-1 uppercase tracking-wider">Modo de teste:</strong>
-                    Admin: <code className="text-slate-300">admin@senai.br</code> / <code className="text-slate-300">senha123</code><br />
-                    Colaborador: <code className="text-slate-300">joao.silva@senai.br</code> / <code className="text-slate-300">senha123</code>
-                </div>
                 </div>
             </section>
         </div>

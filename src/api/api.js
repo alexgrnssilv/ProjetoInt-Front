@@ -5,8 +5,11 @@
 
 import axios from 'axios'
 
-// Garante que a URL base sempre termine com /api para evitar erros de 404 no deploy
-let urlBase = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+// Usa o backend local durante o desenvolvimento e o serviço publicado em produção.
+const apiPadrao = import.meta.env.DEV
+    ? 'http://localhost:3001/api'
+    : 'https://projetoint-back.onrender.com/api'
+let urlBase = import.meta.env.VITE_API_URL || apiPadrao
 if (!urlBase.endsWith('/api')) {
     urlBase = urlBase.replace(/\/$/, '') + '/api'
 }
