@@ -74,10 +74,10 @@ const AssessmentWizard = () => {
     };
 
     return (
-        <div className="w-full min-h-screen flex justify-center items-start p-4 sm:p-8">
-            <div className="w-full max-w-3xl pt-10 sm:pt-20">
+        <div className="assessment-page w-full min-h-screen flex justify-center items-start p-4 sm:p-8">
+            <div className="assessment-shell w-full max-w-3xl pt-10 sm:pt-20">
                 {step === 1 && (
-                    <div className="glass-card p-10 text-center relative overflow-hidden">
+                    <div className="assessment-intro glass-card p-10 text-center relative overflow-hidden">
                         <div className={`absolute top-0 right-0 w-64 h-64 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 ${isAuto ? 'bg-blue-500/10' : 'bg-orange-500/10'}`}></div>
                         <ClipboardList size={60} className={`mx-auto mb-6 relative z-10 ${isAuto ? 'text-blue-500' : 'text-orange-500'}`} />
                         <h1 className="text-3xl font-black mb-4 relative z-10">
@@ -137,7 +137,7 @@ const AssessmentWizard = () => {
 
                 {step === 2 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5">
+                        <div className="assessment-summary flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5">
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
                                 <span>{isAuto ? 'Avaliando a si mesmo' : 'Avaliando Colega:'}</span>
                                 {!isAuto && pendentes.find(p => p.id.toString() === avaliadoId) && (
@@ -162,7 +162,7 @@ const AssessmentWizard = () => {
                         </div>
 
                         {competencias.map(comp => (
-                            <div key={comp.id} className="glass-card p-8 group">
+                            <div key={comp.id} className="score-panel glass-card p-8 group">
                                 <h3 className="text-xl font-bold mb-6 text-slate-200 text-center">{comp.nome}</h3>
                                 <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(score => {
@@ -212,7 +212,7 @@ const AssessmentWizard = () => {
                 )}
 
                 {step === 3 && (
-                    <div className="glass-card p-12 text-center">
+                    <div className="assessment-success glass-card p-12 text-center">
                         <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500">
                             <CheckCircle2 size={40} />
                         </div>
@@ -227,5 +227,7 @@ const AssessmentWizard = () => {
         </div>
     );
 };
+
+export default AssessmentWizard;
 
 export default AssessmentWizard;
