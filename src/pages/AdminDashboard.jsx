@@ -33,7 +33,7 @@ const AdminDashboard = () => {
 
     useEffect(() => { fetchStats(); }, [equipe]);
 
-    if (loading) return <div className="p-20 text-center text-slate-500 font-bold animate-pulse">Carregando Dados Mestre...</div>;
+    if (loading) return <div className="dashboard-loading">Carregando dados...</div>;
 
     const exportRanking = () => {
         generatePDF('ranking-table', 'ranking-performance-senai.pdf');
@@ -67,22 +67,21 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="page-shell dashboard-page" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }}>
+        <main className="page-shell dashboard-page">
             <div className="page-header dashboard-header">
                 <div>
                     <span className="page-kicker">Visão executiva</span>
-                    <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Performance Ranking</h1>
-                    <p className="text-slate-500 font-medium">Análise em tempo real baseada em feedback 360°</p>
+                    <h1>Performance Ranking</h1>
+                    <p>Análise em tempo real baseada em feedback 360°</p>
                 </div>
 
-                <div className="page-actions flex flex-wrap gap-4 items-center">
-                    <Link to="/admin/gestao" className="glass p-3 rounded-xl hover:bg-white/10 transition-all text-slate-400 flex items-center gap-2">
-                        <Settings size={18} /> <span className="text-sm font-bold">Gestão</span>
+                <div className="page-actions">
+                    <Link to="/admin/gestao" className="dashboard-action dashboard-action-secondary">
+                        <Settings size={18} /> <span>Gestão</span>
                     </Link>
-                    <div className="glass p-2 rounded-xl flex items-center gap-2 border border-white/5">
-                        <Filter size={16} className="text-slate-500 ml-2" />
+                    <div className="dashboard-filter">
+                        <Filter size={16} />
                         <select
-                            className="bg-transparent border-none text-sm font-bold text-slate-300 focus:ring-0 outline-none"
                             value={equipe}
                             onChange={(e) => setEquipe(e.target.value)}
                         >
@@ -93,7 +92,7 @@ const AdminDashboard = () => {
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="p-3 bg-red-500/20 hover:bg-red-500/30 text-red-500 rounded-xl font-bold transition-all flex items-center border border-red-500/20"
+                        className="dashboard-action dashboard-action-danger"
                         title="Sair"
                     >
                         <LogOut size={18} />
@@ -101,32 +100,35 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <div className="metric-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="metric-grid">
                 {metricas.map((m) => (
-                    <div key={m.id} className="glass-card p-6 group hover:scale-[1.02] transition-all">
-                        <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">{m.rotulo}</span>
-                            <div className="p-2 bg-white/5 rounded-lg">{m.icone}</div>
+                    <div key={m.id} className="dashboard-metric glass-card">
+                        <div className="dashboard-metric-top">
+                            <span>{m.rotulo}</span>
+                            <div>{m.icone}</div>
                         </div>
-                        <div className="text-4xl font-black text-white">{m.valor}</div>
+                        <div className="dashboard-metric-value">{m.valor}</div>
                     </div>
                 ))}
             </div>
 
-            <div className="content-grid dashboard-content grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="content-panel ranking-panel lg:col-span-2 glass-card overflow-hidden" id="ranking-table">
-                    <div className="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/40">
-                        <h3 className="font-black text-sm uppercase tracking-widest text-slate-400">Ranking Geral</h3>
-                        <div className="flex gap-3">
+            <div className="dashboard-content">
+                <section className="content-panel ranking-panel glass-card" id="ranking-table">
+                    <div className="dashboard-panel-header">
+                        <div>
+                            <span className="dashboard-panel-kicker">Resultados do ciclo</span>
+                            <h2>Ranking geral</h2>
+                        </div>
+                        <div className="dashboard-export-actions">
                             <button
                                 onClick={handleDownloadCSV}
-                                className="text-[10px] sm:text-xs font-black uppercase text-green-500 hover:text-green-400 flex items-center gap-1 transition-colors bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/20"
+                                className="dashboard-export dashboard-export-csv"
                             >
                                 <Download size={14} /> CSV
                             </button>
                             <button
                                 onClick={exportRanking}
-                                className="text-[10px] sm:text-xs font-black uppercase text-blue-500 hover:text-blue-400 flex items-center gap-1 transition-colors bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/20"
+                                className="dashboard-export dashboard-export-pdf"
                             >
                                 <Download size={14} /> PDF
                             </button>
@@ -134,31 +136,31 @@ const AdminDashboard = () => {
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="bg-white/5 text-slate-500 text-[10px] uppercase font-black">
+                            <thead>
                                 <tr>
                                     <th className="px-6 py-4">Nome</th>
                                     <th className="px-6 py-4">Média Calc.</th>
                                     <th className="px-6 py-4 text-right">Status</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
+                            <tbody>
                                 {data?.colaboradores?.map((c, idx) => (
                                     <tr key={c.id} className="hover:bg-white/[0.02] transition-colors">
-                                        <td className="px-6 py-5">
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-xs font-black text-slate-700 w-4">#{idx + 1}</span>
-                                                <span className="font-bold text-slate-200">{c.nome}</span>
+                                        <td>
+                                            <div className="dashboard-person">
+                                                <span className="dashboard-position">#{idx + 1}</span>
+                                                <span>{c.nome}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-5">
-                                            <div className="flex items-baseline gap-1">
-                                                <span className="text-xl font-black text-white">{c.mediaGeral}</span>
-                                                <span className="text-[10px] text-slate-600">pts</span>
+                                        <td>
+                                            <div className="dashboard-score">
+                                                <span>{c.mediaGeral}</span>
+                                                <small>pts</small>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-5 text-right">
+                                        <td className="dashboard-status-cell">
                                             <span
-                                                className="px-3 py-1 rounded-lg text-[10px] font-black border"
+                                                className="dashboard-status"
                                                 style={{ borderColor: `${c.corGeral}40`, color: c.corGeral, backgroundColor: `${c.corGeral}10` }}
                                             >
                                                 {c.nivelGeral}
@@ -169,23 +171,26 @@ const AdminDashboard = () => {
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </section>
 
-                <div className="side-column space-y-6">
-                    <div className="content-panel glass-card p-6">
-                        <h3 className="font-black text-xs uppercase tracking-widest text-slate-500 mb-6">Preview Top #1</h3>
+                <aside className="side-column">
+                    <div className="content-panel radar-panel glass-card">
+                        <div className="radar-panel-heading">
+                            <span>Leitura de competências</span>
+                            <h2>Perfil do top performer</h2>
+                        </div>
                         {data?.colaboradores && data.colaboradores[0] && data.colaboradores[0].radarData?.length > 0 ? (
                             <RadarPerformance
                                 nomeColaborador={data.colaboradores[0].nome}
                                 dados={data.colaboradores[0].radarData}
                             />
                         ) : (
-                            <div className="flex items-center justify-center p-10 text-slate-500 text-sm font-medium">Nenhuma avaliação registrada ainda</div>
+                            <div className="radar-empty">Nenhuma avaliação registrada ainda</div>
                         )}
                     </div>
-                </div>
+                </aside>
             </div>
-        </div>
+        </main>
     );
 };
 
