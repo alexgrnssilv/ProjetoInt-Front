@@ -808,28 +808,27 @@
   isolation: isolate;
   width: min(100%, 1440px);
   padding-top: 0;
-  background-image:
-    linear-gradient(115deg, rgba(93, 214, 200, 0.06), transparent 28%),
-    linear-gradient(290deg, rgba(67, 117, 189, 0.1), transparent 34%),
-    linear-gradient(rgba(93, 214, 200, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(93, 214, 200, 0.025) 1px, transparent 1px);
-  background-position: center top;
-  background-size: 3rem 3rem;
+  background: transparent;
 }
 
 .dashboard-page::before {
   content: "";
-  position: absolute;
+  position: fixed;
+  inset: 0;
   z-index: -1;
-  top: 4.25rem;
-  right: 0;
-  left: 0;
-  height: 18rem;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   opacity: 0.7;
   background:
+    linear-gradient(115deg, rgba(93, 214, 200, 0.06), transparent 28%),
+    linear-gradient(290deg, rgba(67, 117, 189, 0.1), transparent 34%),
     linear-gradient(154deg, transparent 0 18%, rgba(93, 214, 200, 0.04) 18.1% 18.3%, transparent 18.4% 42%, rgba(113, 163, 226, 0.04) 42.1% 42.3%, transparent 42.4%),
-    linear-gradient(154deg, transparent 0 62%, rgba(93, 214, 200, 0.035) 62.1% 62.3%, transparent 62.4%);
+    linear-gradient(154deg, transparent 0 62%, rgba(93, 214, 200, 0.035) 62.1% 62.3%, transparent 62.4%),
+    linear-gradient(rgba(93, 214, 200, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 214, 200, 0.025) 1px, transparent 1px);
+  background-position: center top;
+  background-size: auto, auto, auto, auto, 3rem 3rem, 3rem 3rem;
 }
 
 .dashboard-page::after {
@@ -1049,7 +1048,7 @@
   border: 0;
   border-right: 1px solid #263b50;
   border-radius: 0;
-  background: transparent;
+  background: rgba(16, 30, 45, 0.74);
   box-shadow: none;
 }
 
@@ -1080,19 +1079,19 @@
   border: 0;
   border-top: 2px solid #5dd6c8;
   border-radius: 0;
-  background: transparent;
+  background: rgba(13, 26, 41, 0.82);
   box-shadow: none;
 }
 
 .dashboard-panel-header {
   padding: 1.2rem 0 1.35rem;
   border-bottom: 1px solid #263b50;
-  background: transparent;
+  background: rgba(18, 34, 53, 0.62);
 }
 
 .ranking-panel th {
   padding: 1rem 0;
-  background: transparent;
+  background: rgba(18, 34, 53, 0.5);
 }
 
 .ranking-panel td {
@@ -1500,5 +1499,49 @@
   .admin-nav-drawer .admin-navbar-context {
     margin-left: 0;
     border-left: 0;
+  }
+}
+
+/* Soft framed modules: visible surfaces without heavy card treatment. */
+.dashboard-metric {
+  border: 1px solid rgba(93, 214, 200, 0.18);
+  border-radius: 0.8rem;
+  background: linear-gradient(135deg, rgba(26, 48, 69, 0.92), rgba(12, 26, 42, 0.94));
+}
+
+.dashboard-metric:hover {
+  background: linear-gradient(135deg, rgba(31, 61, 78, 0.96), rgba(14, 32, 48, 0.96));
+  border-color: rgba(93, 214, 200, 0.42);
+}
+
+.ranking-panel,
+.radar-panel {
+  border: 1px solid rgba(93, 214, 200, 0.16);
+  border-top: 2px solid #5dd6c8;
+  border-radius: 0.8rem;
+  background: rgba(12, 26, 42, 0.9);
+}
+
+.dashboard-panel-header {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  background: rgba(20, 40, 59, 0.72);
+}
+
+.ranking-panel th,
+.ranking-panel td {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.radar-panel {
+  padding: 1.2rem 1.5rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .ranking-panel th,
+  .ranking-panel td {
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 }
