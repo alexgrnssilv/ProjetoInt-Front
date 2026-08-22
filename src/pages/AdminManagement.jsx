@@ -154,19 +154,22 @@ const AdminManagement = () => {
     };
 
     return (
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }}>
-            <button onClick={() => navigate('/admin')} className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors text-sm font-bold">
+        <div className="page-shell management-page" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 32px 48px', minHeight: '100vh' }}>
+            <button onClick={() => navigate('/admin')} className="back-link flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors text-sm font-bold">
                 <ChevronLeft size={16} /> Voltar para Dashboard
             </button>
 
-            <header className="mb-10">
+            <header className="page-header management-header mb-10">
+                <div>
+                    <span className="page-kicker">Administração</span>
                 <h1 className="text-4xl font-black text-gradient mb-2">Gestão do Sistema</h1>
                 <p className="text-slate-400">Controle total de usuários e equipes Gestão091</p>
+                </div>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="management-layout grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Coluna Esquerda: Formulários */}
-                <div className="space-y-8 h-fit">
+                <div className="management-forms space-y-8 h-fit">
                     {/* Form Cadastro */}
                     <div className="glass-card p-8 relative">
                         <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
@@ -269,7 +272,7 @@ const AdminManagement = () => {
                 </div>
 
                 {/* Coluna Direita: Listas/Tabelas */}
-                <div className="lg:col-span-2 space-y-8">
+                <div className="management-data lg:col-span-2 space-y-8">
                     {/* Lista Usuários */}
                     <div className="glass-card overflow-hidden">
                         <div className="p-6 border-b border-white/5 bg-white/5">
