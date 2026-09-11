@@ -114,10 +114,6 @@ const AssessmentWizard = () => {
                                     ))}
                                 </select>
 
-                                <label className="flex items-center gap-3 cursor-pointer p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors mt-4">
-                                    <input type="checkbox" checked={anonimo} onChange={e => setAnonimo(e.target.checked)} className="w-5 h-5 rounded border-slate-600 bg-slate-800 text-orange-500 cursor-pointer" />
-                                    <span className="text-white font-medium">Avaliação Anônima</span>
-                                </label>
                             </div>
                         ) : (
                             <div className="assessment-state mb-8 p-6 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400 font-bold">
