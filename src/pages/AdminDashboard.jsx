@@ -7,7 +7,6 @@ import {
     Filter,
     ArrowUpRight,
     ArrowDownRight,
-    Settings,
     Download,
     LogOut,
     LayoutDashboard,
@@ -16,7 +15,7 @@ import {
     ChevronDown
 } from 'lucide-react';
 import RadarPerformance from '../components/RadarPerformance';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { generatePDF } from '../utils/pdfGenerator';
 
 const AdminDashboard = () => {
@@ -119,9 +118,6 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className="page-actions">
-                    <Link to="/admin/gestao" className="dashboard-action dashboard-action-secondary">
-                        <Settings size={18} /> <span>Gestão</span>
-                    </Link>
                     <div className="dashboard-filter">
                         <Filter size={16} />
                         <select
