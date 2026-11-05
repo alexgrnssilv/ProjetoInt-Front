@@ -5,24 +5,17 @@ import {
     TrendingUp,
     CheckCircle,
     Filter,
-    ArrowUpRight,
-    ArrowDownRight,
     Download,
-    LogOut,
-    LayoutDashboard,
-    UsersRound,
-    ClipboardCheck,
-    ChevronDown
 } from 'lucide-react';
 import RadarPerformance from '../components/RadarPerformance';
-import { NavLink } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import { generatePDF } from '../utils/pdfGenerator';
 
 const AdminDashboard = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [equipe, setEquipe] = useState('Todos');
-    const [navbarAberta, setNavbarAberta] = useState(false);
+
     const fetchStats = async () => {
         try {
             const res = await api.get('/dashboard/stats', {
@@ -56,12 +49,6 @@ const AdminDashboard = () => {
         URL.revokeObjectURL(url);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('senai_token');
-        localStorage.removeItem('senai_usuario');
-        window.location.href = '/login';
-    };
-
     const metricas = [
         { id: 1, rotulo: "Total Colaboradores", valor: data.resumo.totalColaboradores, icone: <Users className="text-blue-500" /> },
         { id: 2, rotulo: "Média Global", valor: data.resumo.mediaGlobal, icone: <TrendingUp className="text-green-500" /> },
@@ -70,39 +57,7 @@ const AdminDashboard = () => {
 
     return (
         <main className="page-shell dashboard-page">
-            <nav className={`admin-navbar${navbarAberta ? ' open' : ''}`} aria-label="Navegação administrativa">
-                <button
-                    type="button"
-                    className="admin-brand-toggle"
-                    onClick={() => setNavbarAberta(!navbarAberta)}
-                    aria-expanded={navbarAberta}
-                    aria-controls="admin-navigation-links"
-                    title={navbarAberta ? 'Recolher navegação' : 'Abrir navegação'}
-                >
-                    <span className="admin-brand-mark">G</span>
-                    <span>
-                        <strong>SoftSkills 360</strong>
-                    </span>
-                    <ChevronDown className="admin-navbar-chevron" size={17} aria-hidden="true" />
-                </button>
-                <div className="admin-nav-drawer" id="admin-navigation-links">
-                  <div className="admin-nav-links">
-                    <NavLink to="/admin" end className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
-                        <LayoutDashboard size={16} /> Dashboard
-                    </NavLink>
-                    <NavLink to="/admin/gestao" className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
-                        <UsersRound size={16} /> Gestão de pessoas
-                    </NavLink>
-                    <NavLink to="/admin/avaliar" className={({ isActive }) => `admin-nav-link${isActive ? ' active' : ''}`}>
-                        <ClipboardCheck size={16} /> Avaliações
-                    </NavLink>
-                  </div>
-                  <div className="admin-navbar-context">
-                      <span className="admin-status-dot" />
-                      <span>Ciclo em andamento</span>
-                  </div>
-                </div>
-            </nav>
+            <Navbar />
 
             <div className="page-header dashboard-header">
                 <div>
@@ -129,13 +84,6 @@ const AdminDashboard = () => {
                             <option value="2">Design</option>
                         </select>
                     </div>
-                    <button
-                        onClick={handleLogout}
-                        className="dashboard-action dashboard-action-danger"
-                        title="Sair"
-                    >
-                        <LogOut size={18} />
-                    </button>
                 </div>
             </div>
 
