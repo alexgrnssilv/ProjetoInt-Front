@@ -329,15 +329,17 @@ const AdminManagement = () => {
                 </div>
 
                 {/* Coluna Direita: Listas/Tabelas */}
-                <div className="management-data lg:col-span-2 space-y-8">
+                <div className="management-data lg:col-span-2 space-y-8 min-w-0">
                     {/* Lista Usuários */}
                     <div className="glass-card overflow-hidden">
                         <div className="p-5 sm:p-6 border-b border-white/5 bg-white/5 flex items-center justify-between">
                             <h2 className="font-bold flex items-center gap-2 text-base sm:text-lg">
-                                <Users className="text-blue-400" size={20} /> Colaboradores Ativos ({usuarios.length})
+                                <Users className="text-blue-400" size={20} /> Colaboradores ({usuarios.length})
                             </h2>
                         </div>
-                        <div className="overflow-x-auto">
+
+                        {/* Versão Desktop / Tablet: Tabela Tradicional */}
+                        <div className="hidden md:block overflow-x-auto">
                             <table className="w-full">
                                 <thead>
                                     <tr className="text-left text-xs uppercase text-slate-400 font-bold border-b border-white/5 bg-slate-900/40">
@@ -405,6 +407,62 @@ const AdminManagement = () => {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Versão Mobile: Cards Inteligentes (Sem Rolagem Lateral) */}
+                        <div className="block md:hidden divide-y divide-white/5">
+                            {usuarios.map(u => (
+                                <div key={`m-${u.id}`} className={`p-4 space-y-3 ${!u.ativo ? 'opacity-50' : ''}`}>
+                                    <div className="flex items-start justify-between gap-2">
+                                        <div className="min-w-0">
+                                            <h3 className="font-bold text-sm text-white truncate">{u.nome}</h3>
+                                            <span className="text-xs text-slate-400 truncate block">{u.email}</span>
+                                        </div>
+                                        <button
+                                            onClick={() => handleToggleUserStatus(u)}
+                                            className={`px-2.5 py-1 text-[10px] rounded-lg font-bold uppercase shrink-0 transition-all ${u.ativo ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'}`}
+                                        >
+                                            {u.ativo ? 'Ativo' : 'Inativo'}
+                                        </button>
+                                    </div>
+
+                                    <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                                        <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/60 font-medium text-[11px]">
+                                            {u.cargo || 'Sem cargo'}
+                                        </span>
+                                        <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded ${u.papel === 'ADMIN' ? 'bg-purple-500/15 text-purple-400 border border-purple-500/25' : 'bg-slate-500/15 text-slate-400 border border-slate-500/25'}`}>
+                                            {u.papel}
+                                        </span>
+                                        <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium text-[11px]">
+                                            {u.equipe?.nome || 'Sem equipe'}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 pt-1 border-t border-white/5">
+                                        <Link
+                                            to={`/admin/avaliar?userId=${u.id}`}
+                                            className="flex-1 py-2 px-3 bg-blue-500/15 border border-blue-500/30 hover:bg-blue-500/25 text-blue-400 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+                                        >
+                                            <ClipboardList size={14} />
+                                            <span>Avaliar</span>
+                                        </Link>
+                                        <button
+                                            onClick={() => handleEditClick(u)}
+                                            className="flex-1 py-2 px-3 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+                                        >
+                                            <Edit2 size={14} />
+                                            <span>Editar</span>
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteClick(u.id)}
+                                            className="p-2 bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 text-red-400 rounded-lg text-xs font-bold flex items-center justify-center transition-all"
+                                            title="Excluir Colaborador"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Lista Ciclos */}
@@ -414,7 +472,9 @@ const AdminManagement = () => {
                                 <Calendar className="text-purple-400" size={20} /> Ciclos de Avaliação ({ciclos.length})
                             </h2>
                         </div>
-                        <div className="overflow-x-auto">
+
+                        {/* Versão Desktop / Tablet: Tabela Tradicional */}
+                        <div className="hidden md:block overflow-x-auto">
                             <table className="w-full">
                                 <thead>
                                     <tr className="text-left text-xs uppercase text-slate-400 font-bold border-b border-white/5 bg-slate-900/40">
@@ -458,6 +518,42 @@ const AdminManagement = () => {
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+
+                        {/* Versão Mobile: Cards Inteligentes (Sem Rolagem Lateral) */}
+                        <div className="block md:hidden divide-y divide-white/5">
+                            {ciclos.map(c => (
+                                <div key={`m-ciclo-${c.id}`} className="p-4 space-y-3">
+                                    <div className="flex items-start justify-between gap-2">
+                                        <div>
+                                            <h3 className="font-bold text-sm text-white">{c.nome}</h3>
+                                            <span className="text-xs text-slate-400 block mt-0.5">
+                                                {new Date(new Date(c.dataInicio).getTime() + new Date(c.dataInicio).getTimezoneOffset() * 60000).toLocaleDateString('pt-BR')} até {new Date(new Date(c.dataFim).getTime() + new Date(c.dataFim).getTimezoneOffset() * 60000).toLocaleDateString('pt-BR')}
+                                            </span>
+                                        </div>
+                                        <span className={`px-2.5 py-1 text-[10px] rounded-lg font-bold uppercase shrink-0 ${c.fechado ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}`}>
+                                            {c.fechado ? 'Fechado' : 'Aberto'}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 pt-1 border-t border-white/5">
+                                        <button
+                                            onClick={() => handleToggleCiclo(c)}
+                                            className={`flex-1 py-2 px-3 border rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${c.fechado ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' : 'bg-amber-500/15 border-amber-500/30 text-amber-400'}`}
+                                        >
+                                            <Power size={14} />
+                                            <span>{c.fechado ? 'Reabrir Ciclo' : 'Fechar Ciclo'}</span>
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteCiclo(c.id)}
+                                            className="p-2 bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 text-red-400 rounded-lg text-xs font-bold flex items-center justify-center transition-all"
+                                            title="Excluir Ciclo"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

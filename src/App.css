@@ -2234,14 +2234,6 @@
 }
 
 @media (max-width: 800px) {
-  .management-data {
-    overflow-x: auto;
-  }
-
-  .management-data > .glass-card {
-    min-width: 38rem;
-  }
-
   .assessment-page .score-panel h3 {
     text-align: center;
   }
@@ -2252,10 +2244,6 @@
 }
 
 @media (max-width: 560px) {
-  .management-data > .glass-card {
-    min-width: 32rem;
-  }
-
   .feedback-page .feedback-panel .grid.grid-cols-2 {
     gap: 0.7rem;
   }
