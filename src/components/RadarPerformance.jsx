@@ -1,5 +1,5 @@
 // =====================================================
-// RadarPerformance.jsx — Gráfico de Radar de Soft Skills
+// RadarPerformance.jsx — Gráfico de Radar de Competências - SkillTrack 360
 // Este componente visualiza o equilíbrio de competências.
 // =====================================================
 
@@ -22,7 +22,7 @@ import {
  */
 const RadarPerformance = ({ dados, nomeColaborador }) => {
 
-    // Lógica para determinar a cor baseada na média (Escala SoftSkills 360 de 1 a 10)
+    // Lógica para determinar a cor baseada na média (Escala SkillTrack 360 de 1 a 10)
     const calcularMedia = () => {
         if (!dados || dados.length === 0) return 0;
         const soma = dados.reduce((acc, item) => acc + item.nota, 0);

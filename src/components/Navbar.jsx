@@ -57,9 +57,9 @@ const Navbar = () => {
                         </button>
 
                         <div className="admin-brand-wrapper">
-                            <span className="admin-brand-mark">G</span>
+                            <span className="admin-brand-mark">S</span>
                             <div className="admin-brand-text">
-                                <strong>SoftSkills 360</strong>
+                                <strong>SkillTrack 360</strong>
                                 <small>Painel de Liderança</small>
                             </div>
                         </div>
@@ -102,9 +102,9 @@ const Navbar = () => {
             >
                 <div className="admin-drawer-header">
                     <div className="admin-drawer-brand">
-                        <span className="admin-brand-mark">G</span>
+                        <span className="admin-brand-mark">S</span>
                         <div>
-                            <strong>SoftSkills 360</strong>
+                            <strong>SkillTrack 360</strong>
                             <span className="admin-drawer-tag">Administrador</span>
                         </div>
                     </div>

@@ -258,7 +258,7 @@ const UserFeedback = () => {
             <div className="content-panel feedback-panel feedback-performance-panel glass-card p-8 sm:p-10 mb-10">
                 <div className="flex items-center gap-3 mb-8">
                     <Award className="text-blue-500" />
-                    <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Soft Skills</h2>
+                    <h2 className="font-bold uppercase tracking-widest text-sm text-slate-400">Radar de Competências</h2>
                 </div>
                 <RadarPerformance
                     nomeColaborador="Seu Perfil"
